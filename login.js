@@ -1,5 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, StatusBar, TouchableOpacity, Alert, ActivityIndicator, } from 'react-native';
+import {
+  View,
+  AsyncStorage,
+  Text,
+  StyleSheet,
+  Image,
+  StatusBar,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { TextInput, } from 'react-native-gesture-handler';
@@ -13,6 +23,15 @@ class HomeScreen extends React.Component {
       showProgress: false,
     };
   }
+  state = {
+    'name': ''
+  }
+  //  componentDidMount = () => AsyncStorage.getItem('name').then((value) => this.setState({ 'name': value }))
+
+  setName = (value) => {
+    AsyncStorage.setItem('name', value);
+    this.setState({ 'name': value });
+  }
   onLogin = () => {
     const { textInputValue } = this.state;
     this.setState({
@@ -25,9 +44,10 @@ class HomeScreen extends React.Component {
         showProgress: false
       })
 
-    // Alert.alert(textInputValue);
-    this.props.navigation.navigate('Home')
-  }, 2000)
+      // Alert.alert(textInputValue);
+      this.props.navigation.navigate('Home')
+      // Alert.alert(this.state.name);
+    }, 2000)
 
   }
 
@@ -39,6 +59,13 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.main}>
         <StatusBar backgroundColor="white" barStyle="dark-content"></StatusBar>
+        {/* <View>
+            <TextInput  autoCapitalize = 'none'
+            onChangeText = {this.setName}/>
+            <Text>
+               {this.state.name}
+            </Text>
+         </View> */}
         <View style={styles.view1}>
           <Image
             style={styles.image}
@@ -52,10 +79,11 @@ class HomeScreen extends React.Component {
           Get the User Name Here
           </Text>
         <View style={styles.inputView}>
+          {/* textInputValue => this.setState({ textInputValue }) */}
           <TextInput
             placeholderTextColor="white"
             placeholder='User Name'
-            onChangeText={textInputValue => this.setState({ textInputValue })}
+            onChangeText={this.setName}
             style={styles.textInput}
           />
         </View>
@@ -70,6 +98,7 @@ class HomeScreen extends React.Component {
             {showProgress && <ActivityIndicator />}
           </TouchableOpacity>
         </View>
+
 
       </View>
     );

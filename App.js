@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from "./login"
 import Setting from "./screens/SettingScreen";
 import Home from './screens/HomeScreen'
+import AddPost from './screens/icon'
 
 const AppNavigator = createStackNavigator(
 
@@ -13,11 +14,12 @@ const AppNavigator = createStackNavigator(
 
       Login,
       Home,
+      AddPost,
   },
   {
     headerMode: 'none',
     navigationOptions: {
-      headerVisible: falsegit,
+      headerVisible: false,
       header: null,
       headerForceInset: { top: 'never', bottom: 'never' },
     },

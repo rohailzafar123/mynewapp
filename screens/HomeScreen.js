@@ -6,11 +6,28 @@ import {
   StyleSheet,
   Image,
   StatusBar,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage,
 } from 'react-native'
-
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 class Home extends Component {
+  state = {
+    'name': ''
+ }
+ addpost = () =>{
+  
+  this.props.navigation.navigate('AddPost')
+  
+ }
+  componentDidMount = () => AsyncStorage.getItem('name')
+  .then((value) => 
+  {
+    this.setState({'name': value})
+  })
+
+
   render() {
     return (
 
@@ -23,22 +40,22 @@ class Home extends Component {
         </View>
         <View style={styles.allCardAlgnment}>
           <View style={styles.cardAlgnment}>
-              <Image
-                source={require('../images/tiger.jpeg')}
-                style={styles.card}
-              />
-            <TouchableOpacity onPress={()=> alert('image clicked')}>
+            <Image
+              source={require('../images/tiger.jpeg')}
+              style={styles.card}
+            />
+            <TouchableOpacity onPress={() => alert('image clicked')}>
               <Text style={styles.textStyle}>
-              3 day ago
+                3 day ago
               </Text>
               <View style={styles.line}>
               </View>
 
               <Text style={styles.textStyle}>
-                The Tiger
+              {this.state.name}
               </Text>
             </TouchableOpacity>
-
+          
           </View>
           {/* <Image
             source={require('../images/cock.jpg')}
@@ -57,11 +74,11 @@ class Home extends Component {
             style={styles.card} /> */}
         </View>
         <View style={styles.addButtun}>
-            <TouchableOpacity>
-                <Text style={styles.tex}>
-                  Add Post
+          <TouchableOpacity onPress={this.addpost}>
+            <Text style={styles.tex}>
+              Add Post
                 </Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -82,14 +99,15 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: 'white',
+    
   },
   card: {
     width: 150,
     height: 150,
     // marginTop: 5,
     // marginHorizontal: 15,
-    borderTopLeftRadius:30,
-    borderTopRightRadius:30,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
 
   },
   allCardAlgnment: {
@@ -97,14 +115,14 @@ const styles = StyleSheet.create({
     margin: 15,
     padding: 0,
     flexWrap: 'wrap',
-  
+
   },
-  cardAlgnment:{
+  cardAlgnment: {
     width: 150,
     height: 240,
     backgroundColor: 'rgb(242,244,255)',
-    borderRadius:30,
-    shadowColor:'black',
+    borderRadius: 30,
+    shadowColor: 'black',
     elevation: 3,
     shadowOffset: {
       width: 0,
@@ -121,33 +139,33 @@ const styles = StyleSheet.create({
   textStyle: {
     fontSize: 19,
     fontWeight: 'bold',
-    margin:5,
-    color:'rgb(179,182,188)',
-    marginLeft:15,
+    margin: 5,
+    color: 'rgb(179,182,188)',
+    marginLeft: 15,
 
   },
-  line:{
-    width:'100%',
-    backgroundColor:'rgb(179,182,188)',
-    height:1,
+  line: {
+    width: '100%',
+    backgroundColor: 'rgb(179,182,188)',
+    height: 1,
     // marginVertical:5,
   },
-  addButtun:{
-      position:'absolute',
-      bottom:0,
-      right:0,
-      width:100,
-      height:40,
-      backgroundColor:'rgb(72,77,198)',
-      justifyContent:'center',
-      alignItems:'center',
-      margin:10,
-      borderRadius:20,
+  addButtun: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 100,
+    height: 40,
+    backgroundColor: 'rgb(72,77,198)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+    borderRadius: 20,
   },
-  tex:{
-    color:'white',
-    fontSize:15,
-    fontWeight:'bold',
+  tex: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 })
 export default Home;

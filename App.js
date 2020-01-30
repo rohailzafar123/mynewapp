@@ -17,7 +17,7 @@ const AppNavigator = createStackNavigator(
   {
     headerMode: 'none',
     navigationOptions: {
-      headerVisible: falsegit add README.md,
+      headerVisible: falsegit,
       header: null,
       headerForceInset: { top: 'never', bottom: 'never' },
     },

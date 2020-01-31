@@ -24,7 +24,7 @@ class HomeScreen extends React.Component {
     };
   }
   state = {
-    'name': ''
+    name: ''
   }
   //  componentDidMount = () => AsyncStorage.getItem('name').then((value) => this.setState({ 'name': value }))
 
@@ -47,7 +47,7 @@ class HomeScreen extends React.Component {
       // Alert.alert(textInputValue);
       this.props.navigation.navigate('Home')
       // Alert.alert(this.state.name);
-    }, 2000)
+    }, 1000)
 
   }
 

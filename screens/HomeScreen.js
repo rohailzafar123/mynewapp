@@ -12,20 +12,21 @@ import {
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Header } from 'react-native/Libraries/NewAppScreen';
+import BackIcon from 'react-native-vector-icons/MaterialIcons';
+
 class Home extends Component {
   state = {
     'name': ''
- }
- addpost = () =>{
-  
-  this.props.navigation.navigate('AddPost')
-  
- }
+  }
+  addpost = () => {
+
+    this.props.navigation.navigate('AddPost')
+
+  }
   componentDidMount = () => AsyncStorage.getItem('name')
-  .then((value) => 
-  {
-    this.setState({'name': value})
-  })
+    .then((value) => {
+      this.setState({ 'name': value })
+    })
 
 
   render() {
@@ -34,10 +35,25 @@ class Home extends Component {
       <View style={styles.main}>
         <StatusBar backgroundColor="rgb(242,244,255)" barStyle="dark-content"></StatusBar>
         <View style={styles.Header}>
-          <Text style={styles.textHome}>
-            Home
-          </Text>
+          <View style={styles.backIcon}>
+            <TouchableOpacity
+              style={{
+                width: 45,
+                height: 45,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+              onPress={() => this.props.navigation.goBack()}>
+              <BackIcon name="keyboard-backspace" size={30} color={'black'} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.headingAlign}>
+            <Text style={styles.textHome}>
+              Home
+            </Text>
+          </View>
         </View>
+        
         <View style={styles.allCardAlgnment}>
           <View style={styles.cardAlgnment}>
             <Image
@@ -52,32 +68,19 @@ class Home extends Component {
               </View>
 
               <Text style={styles.textStyle}>
-              {this.state.name}
+                Tiger
+                {/* {this.state.name} */}
               </Text>
             </TouchableOpacity>
-          
+
           </View>
-          {/* <Image
-            source={require('../images/cock.jpg')}
-            style={styles.card} />
-          <Image
-            source={require('../images/dog.jpg')}
-            style={styles.card} />
-          <Image
-            source={require('../images/panda.jpg')}
-            style={styles.card} />
-          <Image
-            source={require('../images/camel.jpg')}
-            style={styles.card} />
-          <Image
-            source={require('../images/wolf.jpg')}
-            style={styles.card} /> */}
+
         </View>
         <View style={styles.addButtun}>
           <TouchableOpacity onPress={this.addpost}>
             <Text style={styles.tex}>
               Add Post
-                </Text>
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -89,17 +92,34 @@ const styles = StyleSheet.create({
   Header: {
     backgroundColor: 'rgb(242,244,255)',
     height: 90,
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    flexDirection: 'row',
+    width:'100%',
+    textAlign: 'center',
+
   },
   textHome: {
     fontSize: 30,
     textAlign: 'center',
     color: 'rgb(218,174,209)',
+
   },
+  headingAlign: {
+    justifyContent: 'center',
+    width: '80%',
+    textAlign: 'center',
+},
   main: {
     flex: 1,
     backgroundColor: 'white',
-    
+
+  },
+  backIcon:{
+    position:'relative',
+    left:0,
+    alignSelf:'center',
+    marginLeft:5,
+
   },
   card: {
     width: 150,
@@ -108,7 +128,6 @@ const styles = StyleSheet.create({
     // marginHorizontal: 15,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-
   },
   allCardAlgnment: {
     // flexDirection: 'row',

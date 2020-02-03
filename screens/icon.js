@@ -20,96 +20,128 @@ import ImagePicker from 'react-native-image-picker';
 class icon extends Component {
     state = {
         photo: null,
-        name: '',
         // date: new Date(),
-
     };
-    // date: new Date().getHours(),
-    //         month: new Date().getMonth() + 1, //Current Month
-    // year : new Date().getFullYear(), //Current Year
-    // hours : new Date().getHours(), //Current Hours
-    // min : new Date().getMinutes(), //Current Minutes
-    // sec : new Date().getSeconds(), //Current Seconds
+    // setName = (userName,userAge) => {
+    //     AsyncStorage.setItem(['name', userName,'age',userAge]);
+    //     this.setState({ name: userName,age: userAge });
+    // }
+    // componentDidMount = () => AsyncStorage.getItem('name')
+    //     .then((userName) => {
+    //         this.setState({ name: userName })
+    //     })
+    //     componentDidMount = () => AsyncStorage.getItem('age')
+    //     .then((userAge) => {
+    //         this.setState({ name: userAge })
+    //     })
+    
+    pickerImage = () => {
+        let options = {};
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
 
 
+                const source = { uri: response.uri };
 
-// setDate = (date) => {
-//     // AsyncStorage.setItem('date', date);
-//     this.setState({ 'date': date });
-// }
-// componentDidMount = () => AsyncStorage.getItem('date')
-// .then((value) => {
-//   this.setState({ 'name': value })
-// // })
-pickerImage = () => {
-    let options = {};
-    ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
+                // You can also display the image using data:
+                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
-        if (response.didCancel) {
-            console.log('User cancelled image picker');
-        } else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
-        } else if (response.customButton) {
-            console.log('User tapped custom button: ', response.customButton);
-        } else {
+                this.setState({
+                    avatarSource: source,
+                });
+            }
+        });
+    }
+
+    addInfo = () => {
+        // const { avatarSource } = this.state
 
 
-            const source = { uri: response.uri };
-
-            // You can also display the image using data:
-            // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-            this.setState({
-                avatarSource: source,
-            });
-        }
-    });
-}
-// goHome
-render() {
-    // const { photo } = this.state;
-    return (
-        <View style={styles.main}>
-            <StatusBar backgroundColor="white" barStyle="dark-content"></StatusBar>
-            <View style={styles.upload}>
-                <TouchableOpacity
-                    style={{
-                        width: 45,
-                        height: 45,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                    onPress={() => this.props.navigation.goBack()}>
-                    <BackIcon name="keyboard-backspace" size={30} color={'black'} />
-                </TouchableOpacity>
-                <View style={styles.headingAlign}>
-                    <Text style={styles.mainHeading}>
-                        Upload Image
+        // AsyncStorage.setItem('image', avatarSource);
+        this.props.navigation.navigate('Todo')
+    }
+    
+    // goHome
+    render() {
+    
+        // const { photo } = this.state;
+        return (
+            <View style={styles.main}>
+                <StatusBar backgroundColor="white" barStyle="dark-content"></StatusBar>
+                <View style={styles.upload}>
+                    <TouchableOpacity
+                        style={{
+                            width: 45,
+                            height: 45,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                        onPress={() => this.props.navigation.goBack()}>
+                        <BackIcon name="keyboard-backspace" size={30} color={'black'} />
+                    </TouchableOpacity>
+                    <View style={styles.headingAlign}>
+                        <Text style={styles.mainHeading}>
+                            Upload Image
                         </Text>
+                    </View>
+                </View>
+                <TouchableOpacity
+                    style={styles.iconAlign}
+                    onPress={() => this.pickerImage()}>
+                    {
+                        this.state.avatarSource && (
+                            <Image
+                                source={this.state.avatarSource}
+                                style={styles.iconImage} />
+                        )}
+                </TouchableOpacity>
+                <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <TextInput style={{
+                        marginTop: 5,
+                        borderWidth: 2,
+                        borderColor: 'rgba(117, 75, 20,  0.459)',
+                        borderRadius: 30,
+                        width: '80%',
+                        paddingLeft: 20,
+                    }}
+                    >
+
+                    </TextInput>
+                    <TextInput style={{
+                        marginTop: 5,
+                        borderWidth: 2,
+                        borderColor: 'rgba(117, 75, 20,  0.459)',
+                        borderRadius: 30,
+                        width: '80%',
+                        paddingLeft: 20,
+                    }}>
+
+                    </TextInput>
+                </View>
+                <View style={styles.uploadButtonView}>
+                    <TouchableOpacity
+                        onPress={() => this.addInfo()}
+                    // onPress={() => this.props.navigation.navigate('Home')}
+                    style={styles.addButtun}
+                    >
+                        <Text style={styles.tex}>
+                            Upload
+                        </Text>
+                    </TouchableOpacity>
+
                 </View>
             </View>
-            <TouchableOpacity
-                style={styles.iconAlign}
-                onPress={() => this.pickerImage()}>
-                {
-                    this.state.avatarSource && (
-                        <Image
-                            source={this.state.avatarSource}
-                            style={styles.iconImage} />
-                    )}
-            </TouchableOpacity>
-            <View style={styles.addButtun}>
-                <TouchableOpacity 
-                onPress={() => this.props.navigation.navigate('Home')}
-                >
-                    <Text style={styles.tex}>
-                        Upload
-                        </Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-
         );
     }
 }
@@ -165,9 +197,13 @@ const styles = StyleSheet.create({
         padding: 10,
 
     },
-    addButtun: {
+    uploadButtonView:{
         position: 'absolute',
         bottom: 0,
+        width:'100%',
+    },
+    addButtun: {
+        
         width: '90%',
         height: 40,
         backgroundColor: 'rgb(158, 158, 158)',

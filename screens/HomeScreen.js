@@ -16,17 +16,22 @@ import BackIcon from 'react-native-vector-icons/MaterialIcons';
 
 class Home extends Component {
   state = {
-    'name': ''
+    name: '',
   }
   addpost = () => {
 
     this.props.navigation.navigate('AddPost')
 
   }
-  componentDidMount = () => AsyncStorage.getItem('name')
-    .then((value) => {
-      this.setState({ 'name': value })
-    })
+  // componentDidMount = () => AsyncStorage.getItem('image')
+  //   .then((value) => {
+  //     console.log(value , 'adsd')
+  //     // this.setState({ 'name': value })
+  //   })
+
+  // componentDidMount() {
+  //   console.log(this.props.navigation, 'erkh')
+  // }
 
 
   render() {
@@ -56,28 +61,73 @@ class Home extends Component {
         
         <View style={styles.allCardAlgnment}>
           <View style={styles.cardAlgnment}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Tiger')}>
             <Image
               source={require('../images/tiger.jpeg')}
               style={styles.card}
             />
-            <TouchableOpacity onPress={() => alert('image clicked')}>
+              <Text style={styles.textStyle}>
+                1 day ago
+              </Text>
+              <View style={styles.line}>
+              </View>
+              <Text style={styles.textStyle}>
+                Tiger
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.cardAlgnment}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Panda')}>
+            <Image
+              source={require('../images/panda.jpg')}
+              style={styles.card}
+            />
               <Text style={styles.textStyle}>
                 3 day ago
               </Text>
               <View style={styles.line}>
               </View>
-
               <Text style={styles.textStyle}>
-                Tiger
-                {/* {this.state.name} */}
+              Panda
               </Text>
             </TouchableOpacity>
-
           </View>
-
+          <View style={styles.cardAlgnment}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Camel')}>
+            <Image
+              source={require('../images/camel.jpg')}
+              style={styles.card}
+            />
+              <Text style={styles.textStyle}>
+                1 Week ago
+              </Text>
+              <View style={styles.line}>
+              </View>
+              <Text style={styles.textStyle}>
+              Camel
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.cardAlgnment}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Wolf')}>
+            <Image
+              source={require('../images/wolf.jpg')}
+              style={styles.card}
+            />
+              <Text style={styles.textStyle}>
+                Last month
+              </Text>
+              <View style={styles.line}>
+              </View>
+              <Text style={styles.textStyle}>
+              Wolf
+              </Text>
+            </TouchableOpacity>
+          </View>
+          
         </View>
-        <View style={styles.addButtun}>
-          <TouchableOpacity onPress={this.addpost}>
+        <View style={styles.addButtunView}>
+          <TouchableOpacity onPress={this.addpost} style={styles.addButtun}>
             <Text style={styles.tex}>
               Add Post
             </Text>
@@ -130,10 +180,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   allCardAlgnment: {
-    // flexDirection: 'row',
+    flexDirection: 'row',
     margin: 15,
-    padding: 0,
+    // padding: 20,
     flexWrap: 'wrap',
+    justifyContent:'space-evenly',
 
   },
   cardAlgnment: {
@@ -149,10 +200,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.18,
     shadowRadius: 1.00,
+    marginBottom:10,
+    // flex
   },
   discription: {
     justifyContent: 'center',
     alignItems: 'center',
+    margin:20,
 
   },
   textStyle: {
@@ -169,10 +223,12 @@ const styles = StyleSheet.create({
     height: 1,
     // marginVertical:5,
   },
-  addButtun: {
+  addButtunView: {
     position: 'absolute',
     bottom: 0,
     right: 0,
+  },
+  addButtun: {
     width: 100,
     height: 40,
     backgroundColor: 'rgb(72,77,198)',
@@ -180,6 +236,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10,
     borderRadius: 20,
+
   },
   tex: {
     color: 'white',
